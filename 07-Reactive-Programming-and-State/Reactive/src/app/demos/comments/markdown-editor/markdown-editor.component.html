@@ -1,38 +1,44 @@
-<form>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Mock Markdown Editor</mat-card-title>
-    </mat-card-header>
-    <mat-card-content fxLayout="column">
-      <ng-container *ngIf="editorEdit">
-        <mat-form-field
-          ><mat-label>Title</mat-label> <input matInput />
-        </mat-form-field>
-        <mat-form-field
-          ><mat-label>Comment</mat-label
-          ><textarea matInput name="" id="" cols="30" rows="8"></textarea>
-        </mat-form-field>
-      </ng-container>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Mock Markdown Editor</mat-card-title>
+  </mat-card-header>
+  <mat-card-content fxLayout="column">
+    <ng-container *ngIf="editorEdit && current != null">
+      <mat-form-field
+        ><mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="current.title" />
+      </mat-form-field>
+      <mat-form-field
+        ><mat-label>Comment</mat-label
+        ><textarea
+          matInput
+          name=""
+          id=""
+          cols="30"
+          rows="8"
+          [(ngModel)]="current.comment"
+        ></textarea>
+      </mat-form-field>
+    </ng-container>
 
-      <ng-container *ngIf="!editorEdit">
-        <div *ngFor="let c of comments">
-          {{ c.titel }}
-        </div>
-      </ng-container>
-    </mat-card-content>
+    <ng-container *ngIf="!editorEdit">
+      <div *ngFor="let c of comments | async" fxLayout="row" fxLayoutGap="16px">
+        <div>{{ c.title }}</div>
+        <div>{{ c.comment }}</div>
+        <button mat-raised-button (click)="editComment(c)">Edit</button>
+      </div>
+    </ng-container>
+  </mat-card-content>
 
-    <mat-card-actions align="end">
-      <ng-container *ngIf="editorEdit">
-        <button mat-raised-button (click)="saveComment()">Save</button>
-        <button mat-raised-button (click)="editorEdit = !editorEdit">
-          Cancel
-        </button>
-      </ng-container>
-      <ng-container *ngIf="!editorEdit">
-        <button mat-raised-button (click)="editorEdit = !editorEdit">
-          Edit
-        </button>
-      </ng-container>
-    </mat-card-actions>
-  </mat-card>
-</form>
+  <mat-card-actions align="end">
+    <ng-container *ngIf="editorEdit">
+      <button mat-raised-button (click)="saveComment()">Save</button>
+      <button mat-raised-button (click)="editorEdit = !editorEdit">
+        Cancel
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!editorEdit">
+      <button mat-raised-button (click)="editorEdit = !editorEdit">Edit</button>
+    </ng-container>
+  </mat-card-actions>
+</mat-card>

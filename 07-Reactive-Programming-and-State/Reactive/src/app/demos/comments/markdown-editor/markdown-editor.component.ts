@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommentItem } from '../comment.model';
+import { SnackbarService } from '../../../shared/snackbar/snackbar.service';
+import { CommentService } from '../comment.service';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
   selector: 'app-markdown-editor',
@@ -7,12 +10,22 @@ import { CommentItem } from '../comment.model';
   styleUrls: ['./markdown-editor.component.scss'],
 })
 export class MarkdownEditorComponent implements OnInit {
-  constructor() {}
+  constructor(private sns: SnackbarService, private cs: CommentService) {}
 
-  comments: CommentItem[] = [];
-  editorEdit = true;
+  @Input() component: string;
+
+  comments = this.cs.getComments().pipe(tap((cs) => console.log(cs)));
+  editorEdit = false;
+  current: CommentItem;
 
   ngOnInit() {}
 
-  saveComment() {}
+  saveComment() {
+    this.sns.displayAlert('saving', this.component);
+  }
+
+  editComment(c: CommentItem) {
+    this.current = c;
+    this.editorEdit = true;
+  }
 }

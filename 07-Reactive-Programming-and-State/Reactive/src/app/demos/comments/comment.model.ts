@@ -1,6 +1,6 @@
 export class CommentItem {
   url: string;
-  titel: string;
+  title: string;
   comment: string;
-  saved: Date;
+  saved?: Date;
 }
