@@ -5,15 +5,15 @@ import {
   Output,
   EventEmitter,
   SimpleChanges,
-  OnChanges
-} from '@angular/core';
-import { FoodItem } from 'src/app/shared/foodItem';
-import { MatTableDataSource } from '@angular/material/table';
+  OnChanges,
+} from "@angular/core";
+import { FoodItem } from "src/app/shared/foodItem";
+import { MatTableDataSource } from "@angular/material/table";
 
 @Component({
-  selector: 'app-food-list',
-  templateUrl: './food-list.component.html',
-  styleUrls: ['./food-list.component.scss']
+  selector: "app-food-list",
+  templateUrl: "./food-list.component.html",
+  styleUrls: ["./food-list.component.scss"],
 })
 export class FoodListComponent implements OnInit, OnChanges {
   constructor() {}
@@ -23,7 +23,7 @@ export class FoodListComponent implements OnInit, OnChanges {
   @Output()
   foodSelected: EventEmitter<FoodItem> = new EventEmitter();
 
-  displayedColumns: string[] = ['id', 'name', 'price', 'calories'];
+  displayedColumns: string[] = ["id", "name", "price", "calories", "editItem"];
   dataSource: MatTableDataSource<FoodItem> = new MatTableDataSource([]);
 
   ngOnInit() {}
