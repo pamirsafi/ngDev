@@ -24,7 +24,7 @@ export class DemoContainerComponent implements OnInit {
   title: string = environment.title;
   header = 'Please select a demo';
   demos$ = this.demoService.getItems();
-  showEditor = false;
+  showEditor = true;
 
   ngOnInit() {
     this.setMetadata();
@@ -34,7 +34,7 @@ export class DemoContainerComponent implements OnInit {
 
   setEditor() {
     this.eb.Commands.subscribe((action) => {
-      this.showEditor = action == SidebarActions.HIDE_MARKDOWN ? false : true;
+      // this.showEditor = action == SidebarActions.HIDE_MARKDOWN ? false : true;
     });
   }
 

@@ -1,0 +1,25 @@
+<form>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Mock Markdown Editor</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="column">
+      <ng-container *ngIf="editorEdit">
+        <mat-form-field
+          ><mat-label>Title</mat-label> <input matInput />
+        </mat-form-field>
+        <mat-form-field
+          ><mat-label>Comment</mat-label
+          ><textarea matInput name="" id="" cols="30" rows="10"></textarea>
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngIf="!editorEdit"> </ng-container>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button (click)="saveComment()">Cancel / Read</button>
+      <button mat-raised-button (click)="saveComment()">Save</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

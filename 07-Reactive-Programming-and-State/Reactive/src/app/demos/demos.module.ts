@@ -23,12 +23,12 @@ import { VouchersListComponent } from './samples/simple-data-store/voucher-list/
 import { KpiBarComponent } from './samples/simple-data-store/kpi-bar/kpi-bar.component';
 import { NgrxVouchersComponent } from './samples/ngrx-vouchers/voucher-list/ngrx-vouchers.component';
 import { VoucherEditComponent } from './samples/ngrx-vouchers/voucher-edit/voucher-edit.component';
-import { MarkdownEditorComponent } from './markdown-editor/markdown-editor.component';
 import { StoreModule } from '@ngrx/store';
 import { demosFeatureKey, DemoReducer } from './store/reducers/demos.reducer';
 import { CreatingObservableComponent } from './samples/creating-observables/creating-observable.component';
 import { AsyncComponent } from './samples/async/async.component';
 import { SharedModule } from '../shared/shared.module';
+import { MarkdownEditorComponent } from './comments/markdown-editor/markdown-editor.component';
 
 const demoRoutes: Routes = [
   {
