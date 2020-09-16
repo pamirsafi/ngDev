@@ -1,37 +1,39 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoginCredentials } from './credential.model';
+import * as firebase from 'firebase/app';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, mapTo, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { LoginCredentials } from './credential.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseAuthService {
   constructor(private fireAuth: AngularFireAuth) {
-    this.onUserChanged();
+    this.handleUserChanged();
   }
 
   private Token: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  private fbUser: firebase.User = null;
-  public User: BehaviorSubject<firebase.User> = new BehaviorSubject(
-    this.fbUser
-  );
+  public User: BehaviorSubject<firebase.User>;
 
-  private onUserChanged() {
-    this.fireAuth.authState.subscribe((user) => {
-      this.fbUser = user;
-      this.User.next(user);
-
-      if (user != null) {
-        this.fbUser.getIdToken().then((token) => {
-          this.Token.next(token);
-        });
-      } else {
-        this.Token.next(null);
-      }
+  handleUserChanged() {
+    this.fireAuth.authState.subscribe((u) => {
+      console.log('fbuser changed', u);
+      this.User.next(u);
+      this.User.pipe(
+        tap((u) => console.log('fbuser changed', u)),
+        mapTo((user) => {
+          if (user != null) {
+            (user as firebase.User).getIdToken().then((idToken: string) => {
+              this.Token.next(idToken);
+            });
+          } else {
+            this.Token.next(null);
+          }
+        })
+      ).subscribe();
     });
   }
 
@@ -75,7 +77,7 @@ export class FirebaseAuthService {
 
   logOff(): Promise<void> {
     return this.fireAuth.signOut().then(() => {
-      this.fbUser = null;
+      // this.fbUser = null;
     });
   }
 }

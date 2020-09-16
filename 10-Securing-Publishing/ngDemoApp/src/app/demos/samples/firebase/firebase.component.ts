@@ -16,7 +16,7 @@ export class FirebaseComponent implements OnInit {
 
   ngOnInit() {
     this.as.User.subscribe((user) => {
-      this.currentUser = user;
+      // this.currentUser = user ;
     });
   }
 

@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 describe('firebase.auth.service', () => {
   let fbservice: FirebaseAuthService;
   let controller: HttpTestingController;
+  let key = 'fbUser';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -36,9 +37,9 @@ describe('firebase.auth.service', () => {
 
   it('Can be created with no user loged in', () => {
     expect(fbservice).toBeTruthy();
-    expect(Reflect.get(fbservice, 'fbUser')).toBe(null);
+    expect(Reflect.get(fbservice, key));
     // Same as abouve - a little easier if you know JavaScript prop accessors
-    expect(fbservice['fbUser']).toBe(null);
+    expect(fbservice[key]).toBe(undefined);
   });
 
   it('registerUser', () => {});
