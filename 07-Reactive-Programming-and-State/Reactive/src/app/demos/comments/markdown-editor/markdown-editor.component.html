@@ -10,16 +10,29 @@
         </mat-form-field>
         <mat-form-field
           ><mat-label>Comment</mat-label
-          ><textarea matInput name="" id="" cols="30" rows="10"></textarea>
+          ><textarea matInput name="" id="" cols="30" rows="8"></textarea>
         </mat-form-field>
       </ng-container>
 
-      <ng-container *ngIf="!editorEdit"> </ng-container>
+      <ng-container *ngIf="!editorEdit">
+        <div *ngFor="let c of comments">
+          {{ c.titel }}
+        </div>
+      </ng-container>
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-raised-button (click)="saveComment()">Cancel / Read</button>
-      <button mat-raised-button (click)="saveComment()">Save</button>
+      <ng-container *ngIf="editorEdit">
+        <button mat-raised-button (click)="saveComment()">Save</button>
+        <button mat-raised-button (click)="editorEdit = !editorEdit">
+          Cancel
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!editorEdit">
+        <button mat-raised-button (click)="editorEdit = !editorEdit">
+          Edit
+        </button>
+      </ng-container>
     </mat-card-actions>
   </mat-card>
 </form>

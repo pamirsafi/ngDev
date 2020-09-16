@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { MenuService } from 'src/app/shared/menu/menu.service';
 import { environment } from 'src/environments/environment';
 import { DemoService } from '../demo.service';
@@ -24,18 +24,13 @@ export class DemoContainerComponent implements OnInit {
   title: string = environment.title;
   header = 'Please select a demo';
   demos$ = this.demoService.getItems();
-  showEditor = true;
+  showEditor = this.eb.Commands.pipe(
+    map((action) => (action == SidebarActions.HIDE_MARKDOWN ? false : true))
+  );
 
   ngOnInit() {
     this.setMetadata();
     this.getWorbenchStyle();
-    this.setEditor();
-  }
-
-  setEditor() {
-    this.eb.Commands.subscribe((action) => {
-      // this.showEditor = action == SidebarActions.HIDE_MARKDOWN ? false : true;
-    });
   }
 
   getWorbenchStyle() {

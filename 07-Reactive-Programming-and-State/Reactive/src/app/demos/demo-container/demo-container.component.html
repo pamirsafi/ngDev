@@ -29,7 +29,7 @@
         </mat-toolbar-row>
       </mat-toolbar>
       <div class="workbench"><router-outlet></router-outlet></div>
-      <div class="editor" *ngIf="showEditor">
+      <div class="editor" *ngIf="showEditor | async">
         <app-markdown-editor></app-markdown-editor>
       </div>
     </div>
