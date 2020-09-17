@@ -1,19 +1,22 @@
-import { Component, OnInit } from "@angular/core";
-import { MenuService } from "../menu.service";
+import { Component, OnInit } from '@angular/core';
+import { MenuService } from '../menu.service';
+import { NavItem } from './navItem';
 
 @Component({
-  selector: "app-navbar",
-  templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.scss"]
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   constructor(private ms: MenuService) {}
 
-  navItems: string[];
+  navItems: NavItem[];
 
   ngOnInit() {
-    this.ms.getMenuItems().subscribe(data => {
-      this.navItems = data;
-    });
+    this.navItems = [
+      { title: 'Home', url: '/' },
+      { title: 'Cars', url: '/car' },
+      { title: 'Admin', url: '/admin' },
+    ];
   }
 }

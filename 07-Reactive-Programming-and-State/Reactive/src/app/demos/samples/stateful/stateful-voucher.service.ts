@@ -13,6 +13,7 @@ import { lateVoucher } from '../late-voucher';
 export class StatefulVoucherService {
   constructor(private httpClient: HttpClient) {
     this.initData();
+    this.addLateVoucher();
   }
 
   private vouchersArray: Voucher[] = [];
@@ -20,20 +21,20 @@ export class StatefulVoucherService {
     this.vouchersArray
   );
 
+  url = environment.apiUrl;
+
   private initData() {
-    this.httpClient
-      .get<Voucher[]>(`${environment.apiUrl}`)
-      .subscribe((data) => {
-        this.vouchersArray = data;
-        this.vouchers.next(this.vouchersArray);
-      });
+    this.httpClient.get<Voucher[]>(this.url).subscribe((data) => {
+      this.vouchersArray = data;
+      this.vouchers.next(this.vouchersArray);
+    });
   }
 
   addLateVoucher() {
     setTimeout(() => {
       this.vouchersArray.push(lateVoucher as Voucher);
       this.vouchers.next(this.vouchersArray);
-    }, 8000);
+    }, 4000);
   }
 
   getAllVouchers(): Observable<Voucher[]> {
@@ -45,11 +46,19 @@ export class StatefulVoucherService {
   }
 
   insertVoucher(v: Voucher): any {
-    this.vouchersArray.push(v);
-    this.vouchers.next(this.vouchersArray);
+    // this.vouchersArray.push(v);
+    // this.vouchers.next(this.vouchersArray);
+
+    this.httpClient.post(this.url, v).subscribe((v: any) => {
+      this.vouchersArray.push(v);
+      this.vouchers.next(this.vouchersArray);
+    });
   }
 
   updateVoucher(v: Voucher): any {}
 
-  deleteVoucher(id: number) {}
+  deleteVoucher(id: number) {
+    this.vouchersArray = this.vouchersArray.filter((v) => v.ID != id);
+    this.vouchers.next(this.vouchersArray);
+  }
 }

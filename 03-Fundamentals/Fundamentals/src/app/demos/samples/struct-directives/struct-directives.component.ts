@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VouchersService } from '../vouchers/voucher.service';
 import { Voucher } from '../vouchers/vouchers.model';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-struct-directives',
@@ -10,10 +12,16 @@ import { Voucher } from '../vouchers/vouchers.model';
 export class StructDirectivesComponent implements OnInit {
   constructor(private vs: VouchersService) {}
 
-  persons = [{ name: 'Heinz' }, { name: 'Brunhilde' }, { name: 'Susi' }];
-  selectedPerson: string = this.persons[0].name;
+  persons = of([
+    { name: 'Heinz' },
+    { name: 'Brunhilde' },
+    { name: 'Susi' },
+  ]).pipe(delay(100));
 
-  vouchers: Voucher[];
+  selectedPerson: string = this.persons[0]?.name;
+
+  // vouchers: Voucher[];
+  vouchers = this.vs.getVouchers();
 
   showDivOne = true;
 
@@ -21,12 +29,16 @@ export class StructDirectivesComponent implements OnInit {
   direction = DirectionEnum;
 
   ngOnInit() {
-    this.vs.getVouchers().subscribe(
-      (data) => {
-        this.vouchers = data;
-      },
-      (err) => console.log('err: ', err)
-    );
+    // this.vs.getVouchers().subscribe(
+    //   (data) => {
+    //     this.vouchers = data;
+    //   },
+    //   (err) => console.log('err: ', err)
+    // );
+  }
+
+  switchSouth() {
+    this.currentDirection = DirectionEnum.South;
   }
 
   showVoucher(v: Voucher) {

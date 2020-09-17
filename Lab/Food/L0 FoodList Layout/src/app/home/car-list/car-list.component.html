@@ -1,0 +1,71 @@
+<!-- <div>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Marke</th>
+        <th>Price</th>
+        <th>PS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of car">
+        <td>{{ p.id }}</td>
+        <td>{{ p.marke }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.ps }}</td>
+        <td><a (click)="selectCar(p)">Select</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+<mat-card>
+  <mat-card-content
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="10px"
+  >
+    <button mat-raised-button (click)="addCar()">
+      <mat-icon>add_circle</mat-icon><span>Add item</span>
+    </button>
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="marke">
+      <th mat-header-cell *matHeaderCellDef>Marke</th>
+      <td mat-cell *matCellDef="let element">{{ element.marke }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Preis</th>
+      <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ps">
+      <th mat-header-cell *matHeaderCellDef>PS</th>
+      <td mat-cell *matCellDef="let element">{{ element.ps }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="deleteItem">
+      <th mat-header-cell *matHeaderCellDef>DEL</th>
+      <td mat-cell *matCellDef="let element" class="icon-cell">
+        <a mat-icon-button (click)="deleteCar(element)">
+          <mat-icon class="mat-18" matTooltip="Löschen">delete</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="selectCar(row)"
+    ></tr>
+  </table>
+</mat-card>

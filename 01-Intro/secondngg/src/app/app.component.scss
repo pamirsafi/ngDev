@@ -1,0 +1,20 @@
+.container {
+  display: felx;
+  flex-direcation: row;
+  background-color: lavender;
+}
+
+.sidebar {
+  background-color: lightyello;
+  felx-grow: 1;
+}
+
+.main {
+  background-color: lavender;
+  felx-grow: 5;
+}
+
+.nav {
+  background-color: lavender;
+  height: 90px;
+}

@@ -1,0 +1,10 @@
+<app-car-list
+  [car]="car"
+  (carSelected)="selectCar($event)"
+  (deleteSelected)="deleteCar($event)"
+></app-car-list>
+<app-car-edit
+  *ngIf="selected != null"
+  [car]="selected"
+  (saveCar)="carSaved($event)"
+></app-car-edit>

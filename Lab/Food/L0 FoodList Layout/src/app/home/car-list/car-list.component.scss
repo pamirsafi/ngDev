@@ -1,0 +1,17 @@
+//Provides Theme funcitonality
+@import '~@angular/material/theming';
+mat-card {
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+}
+
+mat-form-field {
+  width: 100%;
+}

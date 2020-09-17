@@ -41,9 +41,6 @@ export const ngxDropTargetOptions: DropTargetOptions = {
     EditorComponent,
     UploaderComponent,
     AdminComponent,
-    SkillsListComponent,
-    SkillsEditComponent,
-    SkillRowComponent,
   ],
   imports: [
     BrowserModule,
