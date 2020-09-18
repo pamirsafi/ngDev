@@ -58,7 +58,7 @@ export class FirebaseAuthService {
 
   logOn(loginvm: LoginCredentials): Promise<firebase.auth.UserCredential> {
     return this.fireAuth
-      .signInWithEmailAndPassword(loginvm.email, loginvm.pwd)
+      .signInWithEmailAndPassword(loginvm.email, loginvm.password)
       .catch((err) => {
         console.log('Error logging in', err);
         return err;
